@@ -825,7 +825,7 @@ function message($message, $title = 'Message', $statusCode = 200, $wainstat = 0)
         </p>';
     if ($wainstat) {
         $html .= '
-        <div id="err"></div>
+        <div id="err">' . getconstStr('Wait') . '</div>
         <script>
             var dis = document.getElementById("dis");
             var errordiv = document.getElementById("err");
@@ -851,7 +851,7 @@ function message($message, $title = 'Message', $statusCode = 200, $wainstat = 0)
                             //setTimeout(function() { getStatus() }, 1000);
                         }
                     } else if (xhr.status==206) {
-                        errordiv.innerHTML = min + "<br>" + x;
+                        errordiv.innerHTML = "' . getconstStr('Wait') . '" + min + "<br>" + x;
                         setTimeout(function() { getStatus() }, 1000);
                     } else {
                         console.log(xhr.status);
