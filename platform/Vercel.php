@@ -165,7 +165,7 @@ function install()
 
             $projectPath = splitlast(__DIR__, "/")[0];
         //$html .= file_get_contents($projectPath . "/.data/config.php") . "<br>";GET /v5/now/deployments  /v8/projects/:id/env
-            $token = $tmp['APIKey'];
+            $token = $APIKey;
             $header["Authorization"] = "Bearer " . $token;
             $header["Content-Type"] = "application/json";
             $aliases = json_decode(curl("GET", "https://api.vercel.com/v3/now/aliases", "", $header)['body'], true);
@@ -176,30 +176,23 @@ function install()
         //$envs = json_decode(curl("GET", "https://api.vercel.com/v8/projects/" . $projectId . "/env", "", $header)['body'], true);
 
             $tmp['HerokuappId'] = $projectId;
-            $response = json_decode(setVercelConfig($tmp, $projectId, $APIKey)['body'], true);
+            $response = json_decode(setVercelConfig($tmp, $projectId, $APIKey), true);
             if (api_error($response)) {
                 $html = api_error_msg($response);
                 $title = 'Error';
                 return message($html, $title, 400);
             } else {
-                $html = '<span id="displayBox"></span>
-    <script>
+                /*$html = '<script>
         var status = "' . $response['status'] . '";
+        var link = "' . path_format($_SERVER['base_path'] . '/') . '";
         var expd = new Date();
         expd.setTime(expd.getTime()+1000);
         var expires = "expires="+expd.toGMTString();
         document.cookie=\'language=; path=/; \'+expires;
-        var i = 0;
-        var uploadList = setInterval(function(){
-            if (document.getElementById("dis").style.display=="none") {
-                console.log(i++);
-            } else {
-                clearInterval(uploadList);
-                location.href = "' . path_format($_SERVER['base_path'] . '/') . '";
-            }
-        }, 1000);
     </script>';
-                return message($html, $title, 201, 1);
+                return message($html, $title, 201, 1);*/
+                $data["dplId"] = $response['status'];
+                return output(json_encode($data), 201);
             }
         }
     }
@@ -211,14 +204,16 @@ language:<br>';
             $html .= '
         <label><input type="radio" name="language" value="'.$key1.'" '.($key1==$constStr['language']?'checked':'').' onclick="changelanguage(\''.$key1.'\')">'.$value1.'</label><br>';
         }
-        if (getConfig('APIKey')=='') $html .= '
+        //if (getConfig('APIKey')=='') 
+        $html .= '<br>
         <a href="https://vercel.com/account/tokens" target="_blank">' . getconstStr('Create') . ' token</a><br>
-        <label>Token:<input name="APIKey" type="text" placeholder="" size=""></label><br>';
+        <label>Token:<input name="APIKey" type="password" placeholder="" value="' . getConfig('APIKey') . '"></label><br>';
         $html .= '<br>
         <label>Set admin password:<input name="admin" type="password" placeholder="' . getconstStr('EnvironmentsDescription')['admin'] . '" size="' . strlen(getconstStr('EnvironmentsDescription')['admin']) . '"></label><br>';
         $html .= '
         <input type="submit" value="'.getconstStr('Submit').'">
     </form>
+    <div id="showerror"></div>
     <script>
         var nowtime= new Date();
         var timezone = 0-nowtime.getTimezoneOffset()/60;
@@ -226,6 +221,7 @@ language:<br>';
         expd.setTime(expd.getTime()+(2*60*60*1000));
         var expires = "expires="+expd.toGMTString();
         document.cookie="timezone="+timezone+"; path=/; "+expires;
+        var errordiv = document.getElementById("showerror");
         function changelanguage(str)
         {
             var expd = new Date();
@@ -239,14 +235,57 @@ language:<br>';
             if (t.admin.value==\'\') {
                 alert(\'input admin\');
                 return false;
-            }';
-        if (getConfig('APIKey')=='') $html .= '
+            }
             if (t.APIKey.value==\'\') {
                 alert(\'input API Key\');
                 return false;
-            }';
-        $html .= '
-            return true;
+            }
+            t.style.display = "none";
+            errordiv.innerHTML = "' . getconstStr('Wait') . '";
+            var xhr = new XMLHttpRequest();
+            var url = t.action;
+            xhr.open("POST", url);
+            xhr.onload = function(e) {
+                if (xhr.status==201) {
+                    var res = JSON.parse(xhr.responseText);
+                    getStatus(res.dplId, t.APIKey.value);
+                } else {
+                    errordiv.innerHTML = xhr.status + "<br>" + xhr.responseText;
+                }
+            }
+            xhr.send("admin=" + t.admin.value + "&APIKey=" + t.APIKey.value);
+
+            var x = "";
+            var min = 0;
+            function getStatus(id, VercelToken) {
+                //console.log(id + " " + domain + " " + VercelToken);
+                x += ".";
+                min++;
+                var xhr = new XMLHttpRequest();
+                var url = "https://api.vercel.com/v11/now/deployments/" + id;
+                xhr.open("GET", url);
+                xhr.setRequestHeader("Authorization", "Bearer " + VercelToken);
+                xhr.onload = function(e) {
+                    if (xhr.status==200) {
+                        var deployStat = JSON.parse(xhr.responseText).readyState;
+                        if (deployStat=="READY") {
+                            x = "";
+                            min = 0;
+                            errordiv.innerHTML = "Deploy done.";
+                            location.href = "/";
+                        } else {
+                            errordiv.innerHTML = deployStat + ", " + min + ".<br>' . getconstStr('Wait') . ' " + x;
+                            if (deployStat!=="ERROR") setTimeout(function() { getStatus(id, VercelToken) }, 1000);
+                        }
+                    } else {
+                        console.log(xhr.status);
+                        console.log(xhr.responseText);
+                    }
+                }
+                xhr.send(null);
+            }
+
+            return false;
         }
     </script>';
         $title = getconstStr('SelectLanguage');
