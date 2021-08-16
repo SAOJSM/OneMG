@@ -162,17 +162,17 @@ function install()
                 $APIKey = $_POST['APIKey'];
                 $tmp['APIKey'] = $APIKey;
             }
-            
-        $projectPath = splitlast(__DIR__, "/")[0];
-    //$html .= file_get_contents($projectPath . "/.data/config.php") . "<br>";GET /v5/now/deployments  /v8/projects/:id/env
-        $token = $tmp['APIKey'];
-        $header["Authorization"] = "Bearer " . $token;
-        $header["Content-Type"] = "application/json";
-        $aliases = json_decode(curl("GET", "https://api.vercel.com/v3/now/aliases", "", $header)['body'], true);
-        $host = splitfirst($_SERVER["host"], "//")[1];
-        foreach ($aliases["aliases"] as $key => $aliase) {
-            if ($host==$aliase["alias"]) $projectId = $aliase["projectId"];
-        }
+
+            $projectPath = splitlast(__DIR__, "/")[0];
+        //$html .= file_get_contents($projectPath . "/.data/config.php") . "<br>";GET /v5/now/deployments  /v8/projects/:id/env
+            $token = $tmp['APIKey'];
+            $header["Authorization"] = "Bearer " . $token;
+            $header["Content-Type"] = "application/json";
+            $aliases = json_decode(curl("GET", "https://api.vercel.com/v3/now/aliases", "", $header)['body'], true);
+            $host = splitfirst($_SERVER["host"], "//")[1];
+            foreach ($aliases["aliases"] as $key => $aliase) {
+                if ($host==$aliase["alias"]) $projectId = $aliase["projectId"];
+            }
         //$envs = json_decode(curl("GET", "https://api.vercel.com/v8/projects/" . $projectId . "/env", "", $header)['body'], true);
 
             $tmp['HerokuappId'] = $projectId;
@@ -180,26 +180,27 @@ function install()
             if (api_error($response)) {
                 $html = api_error_msg($response);
                 $title = 'Error';
+                return message($html, $title, 400);
             } else {
-                return output('<span id="displayBox"></span>
+                $html = '<span id="displayBox"></span>
     <script>
+        var status = "' . $response['status'] . '";
         var expd = new Date();
         expd.setTime(expd.getTime()+1000);
         var expires = "expires="+expd.toGMTString();
         document.cookie=\'language=; path=/; \'+expires;
-        x = 30;
-        function countSecond() 
-        {　
-            x--;
-            document.getElementById("displayBox").innerHTML = x;
-            if (x>0) setTimeout("countSecond()", 1000);
-        }
-        // 执行函数
-        countSecond();
-    </script>
-    <meta http-equiv="refresh" content="30;URL=' . path_format($_SERVER['base_path'] . '/') . '">', 302);
+        var i = 0;
+        var uploadList = setInterval(function(){
+            if (document.getElementById("dis").style.display=="none") {
+                console.log(i++);
+            } else {
+                clearInterval(uploadList);
+                location.href = "' . path_format($_SERVER['base_path'] . '/') . '";
             }
-            return message($html, $title, 201);
+        }, 1000);
+    </script>';
+                return message($html, $title, 201, 1);
+            }
         }
     }
     if ($_GET['install0']) {
@@ -253,8 +254,8 @@ language:<br>';
     }
 
     if (substr($_SERVER["host"], -10)=="vercel.app") {
-    $html .= '<a href="?install0">' . getconstStr('ClickInstall') . '</a>, ' . getconstStr('LogintoBind');
-    $html .= "<br>Remember: you MUST wait 30-60s after each operate / do some change, that make sure Vercel has done the building<br>" ;
+        $html .= '<a href="?install0">' . getconstStr('ClickInstall') . '</a>, ' . getconstStr('LogintoBind');
+        $html .= "<br>Remember: you MUST wait 30-60s after each operate / do some change, that make sure Vercel has done the building<br>" ;
     } else {
         $html.= "Please visit form *.vercel.app";
     }
