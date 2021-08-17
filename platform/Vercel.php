@@ -157,14 +157,12 @@ function install()
             $tmp['admin'] = $_POST['admin'];
             //$tmp['language'] = $_POST['language'];
             $tmp['timezone'] = $_COOKIE['timezone'];
-            $APIKey = getConfig('APIKey');
-            if ($APIKey=='') {
-                $APIKey = $_POST['APIKey'];
-                $tmp['APIKey'] = $APIKey;
-            }
+            $APIKey = $_POST['APIKey'];
+            //if ($APIKey=='') {
+            //    $APIKey = getConfig('APIKey');
+            //}
+            $tmp['APIKey'] = $APIKey;
 
-            $projectPath = splitlast(__DIR__, "/")[0];
-        //$html .= file_get_contents($projectPath . "/.data/config.php") . "<br>";GET /v5/now/deployments  /v8/projects/:id/env
             $token = $APIKey;
             $header["Authorization"] = "Bearer " . $token;
             $header["Content-Type"] = "application/json";
@@ -173,9 +171,8 @@ function install()
             foreach ($aliases["aliases"] as $key => $aliase) {
                 if ($host==$aliase["alias"]) $projectId = $aliase["projectId"];
             }
-        //$envs = json_decode(curl("GET", "https://api.vercel.com/v8/projects/" . $projectId . "/env", "", $header)['body'], true);
-
             $tmp['HerokuappId'] = $projectId;
+
             $response = json_decode(setVercelConfig($tmp, $projectId, $APIKey), true);
             if (api_error($response)) {
                 $html = api_error_msg($response);
@@ -184,7 +181,6 @@ function install()
             } else {
                 /*$html = '<script>
         var status = "' . $response['status'] . '";
-        var link = "' . path_format($_SERVER['base_path'] . '/') . '";
         var expd = new Date();
         expd.setTime(expd.getTime()+1000);
         var expires = "expires="+expd.toGMTString();
@@ -237,19 +233,19 @@ language:<br>';
                 return false;
             }
             if (t.APIKey.value==\'\') {
-                alert(\'input API Key\');
+                alert(\'input Token\');
                 return false;
             }
             t.style.display = "none";
             errordiv.innerHTML = "' . getconstStr('Wait') . '";
             var xhr = new XMLHttpRequest();
-            var url = t.action;
-            xhr.open("POST", url);
+            xhr.open("POST", t.action);
             xhr.onload = function(e) {
                 if (xhr.status==201) {
                     var res = JSON.parse(xhr.responseText);
                     getStatus(res.dplId, t.APIKey.value);
                 } else {
+                    t.style.display = "";
                     errordiv.innerHTML = xhr.status + "<br>" + xhr.responseText;
                 }
             }
@@ -258,7 +254,6 @@ language:<br>';
             var x = "";
             var min = 0;
             function getStatus(id, VercelToken) {
-                //console.log(id + " " + domain + " " + VercelToken);
                 x += ".";
                 min++;
                 var xhr = new XMLHttpRequest();
@@ -278,6 +273,7 @@ language:<br>';
                             if (deployStat!=="ERROR") setTimeout(function() { getStatus(id, VercelToken) }, 1000);
                         }
                     } else {
+                        t.style.display = "";
                         console.log(xhr.status);
                         console.log(xhr.responseText);
                     }
