@@ -504,12 +504,13 @@ class Onedrive {
                 $title = 'Error';
                 return message($html, $title, 201);
             } else {
-                $str .= '<script>
+                $html .= '<script>
                 var expd = new Date();
                 expd.setTime(expd.getTime()+1);
                 var expires = "expires="+expd.toGMTString();
                 document.cookie=\'disktag=; path=/; \'+expires;
                 var i = 0;
+                var status = "' . $response['status'] . '";
                 var uploadList = setInterval(function(){
                     if (document.getElementById("dis").style.display=="none") {
                         console.log(i++);
@@ -519,7 +520,7 @@ class Onedrive {
                     }
                 }, 1000);
                 </script>';
-                return message($str, getconstStr('WaitJumpIndex'), 201, 1);
+                return message($html, getconstStr('WaitJumpIndex'), 201, 1);
             }
         }
 
@@ -615,8 +616,9 @@ class Onedrive {
                     return message($html, $title, 201);
                 } else {
                     savecache('access_token', $ret['access_token'], $this->disktag, $ret['expires_in'] - 60);
-                    $str .= '<script>
+                    $html .= '<script>
                     var i = 0;
+                    var status = "' . $response['status'] . '";
                 var uploadList = setInterval(function(){
                     if (document.getElementById("dis").style.display=="none") {
                         console.log(i++);
@@ -626,7 +628,7 @@ class Onedrive {
                     }
                 }, 1000);
                 </script>';
-                    return message($str, getconstStr('Wait') . ' 3s', 201, 1);
+                    return message($html, getconstStr('Wait') . ' 3s', 201, 1);
                 }
             }
             return message('<pre>' . json_encode(json_decode($tmp['body']), JSON_PRETTY_PRINT) . '</pre>', $tmp['stat']);
@@ -695,8 +697,9 @@ class Onedrive {
                     $title = getconstStr('MayinEnv');
                     $html = getconstStr('Wait');
                     if ($_POST['Drive_ver']!='Sharelink') $url .= '?install1&disktag=' . $_GET['disktag'] . '&AddDisk=' . $_POST['Drive_ver'];
-                    $str .= '<script>
+                    $html .= '<script>
                     var i = 0;
+                    var status = "' . $response['status'] . '";
                 var uploadList = setInterval(function(){
                     if (document.getElementById("dis").style.display=="none") {
                         console.log(i++);
