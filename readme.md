@@ -62,18 +62,25 @@ How to Install:
 # Features 特性  
 When downloading files, the program produce a direct url, visitor download files from MS OFFICE via the direct url, the server expend a few bandwidth in produce.  
 下載時，由程序解析出直鏈，瀏覽器直接從微軟Onedrive服務器下載文件，服務器只消耗與微軟通信的少量流量。  
+
 When uploading files, the program produce a direct url, visitor upload files to MS OFFICE via the direct url, the server expend a few bandwidth in produce.  
 上傳時，由程序生成上傳url，瀏覽器直接向微軟Onedrive的這個url上傳文件，服務器只消耗與微軟通信的少量流量。  
+
 The XXX_path in setting is the path in Onedrive, not in url, program will find the path in Onedrive.  
 設置中的 XXX_path 是Onedrive里面的路徑，並不是你url里面的，程序會去你Onedrive里面找這個路徑。  
+
 LOGO ICON: put your 'favicon.ico' in the path you showed, make sure xxxxx.com/favicon.ico can be visited.   
 網站圖標：將favicon.ico文件放在你要展示的目錄中，確保 xxxxx.com/favicon.ico 可以訪問到。  
+
 Program will show content of 'readme.md' & 'head.md'.  
 可以在文件列表顯示head.md跟readme.md文件的內容。  
+
 guest up path, is a folder that the guest can upload files, but can not be list (exclude admin).  
 遊客上傳目錄（也叫圖床目錄），是指定一個目錄，讓遊客可以上傳文件，不限格式，不限大小。這個目錄里面的內容不列清單（除非管理登錄）。  
+
 If there is 'index.html' file, program will only show the content of 'index.html', not list the files.  
 如果目錄中有index.html文件，只會輸出顯示html文件，不顯示程序框架。  
+
 Click 'EditTime' or 'Size', the list will sort by time or size, Click 'File' can resume sort.  
 點擊“時間”、“大小”，可以排序顯示，點“文件”恢覆原樣。  
 
