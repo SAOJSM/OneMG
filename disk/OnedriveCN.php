@@ -10,8 +10,8 @@ class OnedriveCN extends Onedrive {
             $this->client_id = getConfig('client_id', $tag);
             $this->client_secret = getConfig('client_secret', $tag);
         } else {
-            $this->client_id = '31f3bed5-b9d9-4173-86a4-72c73d278617';
-            $this->client_secret = 'P5-ZNtFK-tT90J.We_-DcsuB8uV7AfjL8Y';
+            $this->client_id = 'dce8f7eb-04c1-4f6b-8169-7cbeadd89232';
+            $this->client_secret = 'W2uMAf_93eGqae7u3E7TZu3-G6~~kfcX3h';
         }
         $this->oauth_url = 'https://login.partner.microsoftonline.cn/common/oauth2/v2.0/';
         $this->api_url = 'https://microsoftgraph.chinacloudapi.cn/v1.0';
