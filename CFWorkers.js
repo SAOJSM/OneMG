@@ -1,21 +1,18 @@
-
-// odd, 单日
+//單雙日對應網址請自行更換
+// odd, 單日
 const SingleDay = 'https://aaa1.herokuapp.com'
-// even, 双日
+// even, 雙日
 const DoubleDay = 'https://bbb2.herokuapp.com'
 
-//const SingleDay = 'https://153xxxxx0.cn-hongkong.fc.aliyuncs.com/2016-08-15/proxy/onedrive/xxx/'
-//const DoubleDay = 'https://153xxxxx0.cn-hongkong.fc.aliyuncs.com/2016-08-15/proxy/onedrive/xxx/'
-
-// CF proxy all, 一切给CF代理，true/false
+// CF proxy all, 一切給CF代理，true/false
 const CFproxy = true
 
 // Used in cloudflare workers, odd or even days point to 2 heroku account.
 
-// 由于heroku不绑卡不能自定义域名，就算绑卡后https也不方便
-// 另外免费套餐每月550小时，有些人不够用
-// 于是在CF Workers使用此代码，分单双日拉取不同heroku帐号下的相同网页
-// 只改上面，下面不用动
+// 由於heroku不綁卡不能自定義域名，就算綁卡後https也不方便
+// 另外免費套餐每月550小時，有些人不夠用
+// 於是在CF Workers使用此代碼，分單雙日拉取不同heroku帳號下的相同網頁
+// 只改上面，下面不用動
 
 addEventListener('fetch', event => {
     let url=new URL(event.request.url);
