@@ -1,5 +1,5 @@
-# Please read the descriptions of settings before raising an issue.  
-# 請將設置中所有的設置項的說明都讀一遍，有些問題就不用問了。 
+__Please read the descriptions of settings before raising an issue__
+__請將設置中所有的設置項的說明都讀一遍，有些問題就不用問了。__
 
 # 注意事項
 若要使用onedrive
