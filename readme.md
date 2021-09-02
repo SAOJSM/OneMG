@@ -6,7 +6,7 @@ Please read the descriptions of settings before raising an issue.
 請修改 https://github.com/SAOJSM/OneMG/tree/master/disk 內onedrive相關檔案client_id和client_secret為自己的
 用我的有機率無法取得refresh_token
 
-***取得自己的client_id和client_secret***
+# 取得自己的client_id和client_secret
 
 1.先到這個網址 (https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade) 註冊新應用
 
