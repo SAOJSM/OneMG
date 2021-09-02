@@ -8,8 +8,11 @@ Please read the descriptions of settings before raising an issue.
 
 ***取得自己的client_id和client_secret***
 1.先到這個網址 (https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade) 註冊新應用
+
 redirect_uri = https://saojsm.github.io/Brian-Onemg
-2.切換到 Certificates & secrets 頁籤, 創建 client secret , 複製client_id、client_secret.
+
+2.切換到 Certificates & secrets 頁籤, 創建 client secret , 複製client_id、client_secret
+
 3.切換到 API permissions 頁籤, 增加offline_access, Files.Read, Files.Read.All權限
 
 For OneDrive Index purpose, select following permssions: offline_access, Files.Read, Files.Read.All .
