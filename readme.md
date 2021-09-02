@@ -16,8 +16,6 @@ redirect_uri = https://saojsm.github.io/Brian-Onemg
 
 3.切換到 API permissions 頁籤, 增加offline_access, Files.Read, Files.Read.All權限
 
-For OneDrive Index purpose, select following permssions: offline_access, Files.Read, Files.Read.All .
-
 # Deploy to Heroku  
 Official: https://heroku.com  
 Demo: https://herooneindex.herokuapp.com/  
