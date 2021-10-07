@@ -17,15 +17,6 @@ redirect_uri = https://saojsm.github.io/Brian-Onemg
 
 3.切換到 API permissions 頁籤, 增加offline_access, Files.Read, Files.Read.All權限
 
-# Deploy to Heroku  
-Official: https://heroku.com  
-Demo: https://herooneindex.herokuapp.com/  
-
-How to Install:   
-> ~~Click the button [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/SAOJSM/OneMG) to Deploy a new app~~(`"We couldn't deploy your app because the source code violates the Salesforce Acceptable Use and External-Facing Services Policy."`)  
-> Fork this project, create a heroku app, then turn to Deploy tab, deploy via connect to your github fork.   
-
-
 # Deploy to Glitch  
 Official: https://glitch.com/  
 Demo: https://onemanager.glitch.me/  
