@@ -21,7 +21,7 @@ redirect_uri = https://saojsm.github.io/Brian-Onemg
 Official: https://glitch.com/  
 Demo: https://onemanager.glitch.me/  
 
-How to Install: New Project -> Import form Github -> paste "https://github.com/SAOJSM/OneMG", after done, Show -> In a New Window.  
+How to Install: New Project -> Import form Github -> paste "https://github.com/SAOJSM/OneMG/", after done, Show -> In a New Window.  
 
 
 # Deploy to Vercel  
