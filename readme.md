@@ -11,7 +11,7 @@ __請將設置中所有的設置項的說明都讀一遍，有些問題就不用
 
 1.先到這個網址 (https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade) 註冊新應用
 
-redirect_uri = https://saojsm.github.io/Brian-Onemg
+redirect_uri = https://saojsm.github.io/Brian-Onemg/
 
 2.切換到 Certificates & secrets 頁籤, 創建 client secret , 複製client_id、client_secret
 
@@ -21,7 +21,7 @@ redirect_uri = https://saojsm.github.io/Brian-Onemg
 Official: https://glitch.com/  
 Demo: https://onemanager.glitch.me/  
 
-How to Install: New Project -> Import form Github -> paste "https://github.com/SAOJSM/OneMG/", after done, Show -> In a New Window.  
+How to Install: New Project -> Import form Github -> paste "https://github.com/SAOJSM/OneMG", after done, Show -> In a New Window.  
 
 
 # Deploy to Vercel  
