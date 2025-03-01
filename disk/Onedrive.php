@@ -12,7 +12,7 @@ class Onedrive {
             $this->client_secret = getConfig('client_secret', $tag);
         } else {
             $this->client_id = '3764a07d-e049-49db-b5be-ffa012e64833';
-            $this->client_secret = 'wXf7Q~-FTPqCO1OQed4yRymqxwh0PpV3Bq2r1';
+            $this->client_secret = 'PKS8Q~53cHtlfWEAXFn42mPEX08LyN-Bcs5Zzbva';
         }
         $this->oauth_url = 'https://login.microsoftonline.com/common/oauth2/v2.0/';
         $this->api_url = 'https://graph.microsoft.com/v1.0';
