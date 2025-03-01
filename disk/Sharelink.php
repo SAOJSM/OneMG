@@ -5,7 +5,7 @@ class Sharelink extends Onedrive {
 
     function __construct($tag) {
         $this->disktag = $tag;
-        $this->redirect_uri = 'https://saojsm.github.io/Brian-Onemg';
+        $this->redirect_uri = 'https://saojsm.github.io/Brian-Onemg/';
         $this->api_url = getConfig('shareapiurl', $tag);
         $res = $this->get_access_token(1);
         //$this->ext_api_url = '/me/drive/root';
